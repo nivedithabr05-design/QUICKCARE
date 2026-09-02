@@ -4,4 +4,8 @@ class Start1
 {
 	System.out.println("modifieds");
 }
+ void show2()
+ {
+	System.out.println("g2");
+ }
 }
