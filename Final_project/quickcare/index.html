@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickCare - Hospital Navigation & Management</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="12" fill="#0b63ce"/>
+      <path d="M4 12h3l1.5-4 3 8L13 9l1.5 3H20" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <div>
+      <h1>QuickCare</h1>
+      <span>Your Health, Our Priority</span>
+    </div>
+  </div>
+  <h2 class="system-title">QuickCare </h2>
+  <div class="top-actions">
+    <button class="top-btn" data-nav="voice">🎙️</button>
+    <button class="top-btn" data-nav="admit">👤 Patient Management</button>
+    <button class="top-btn" data-nav="emergency">➕ Emergency Care</button>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="side-title">QuickCare</div>
+      <button class="nav-item" data-nav="departments">🏬 Departments</button>
+    <button class="nav-item" data-nav="doctors">🩺 Doctors</button>
+    <button class="nav-item" data-nav="patients">🧑‍🤝‍🧑 Patients</button>
+    <button class="nav-item" data-nav="emergency">🚑 Emergency</button>
+    <button class="nav-item" data-nav="admit">🛏️ Admit Patient</button>
+    <button class="nav-item" data-nav="queue">📋 Patient Queue</button>
+    <button class="nav-item" data-nav="prescription">💊 Create Prescription</button>
+    <button class="nav-item" data-nav="foodplan">🍽️ Food Plan</button>
+    <button class="nav-item" data-nav="bill">🧾 Generate Bill</button>
+    <button class="nav-item" data-nav="voice" aria-label="Voice route">🎙️</button>
+  <button class="nav-item" data-nav="nearby">📍 Nearby Hospitals</button>
+  </nav>
+
+  <main class="content" id="content">
+
+    <!-- DEPARTMENTS -->
+    <section id="departments" class="panel">
+      <h2>Departments</h2>
+      <div class="dept-grid" id="deptGrid"></div>
+    </section>
+
+    <!-- DOCTORS -->
+    <section id="doctors" class="panel">
+      <div class="panel-header">
+        <h2>Our Doctors</h2>
+        <select id="deptFilter"></select>
+      </div>
+      <div class="doctor-grid" id="doctorGrid"></div>
+      <p class="hint">Doctor profiles only — no consultation fee displayed.</p>
+    </section>
+
+    <!-- PATIENTS -->
+    <section id="patients" class="panel">
+      <h2>Patients</h2>
+      <div class="table-wrap">
+        <table id="patientsTable">
+          <thead><tr><th>Patient ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Phone</th><th>Department</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- EMERGENCY -->
+    <section id="emergency" class="panel">
+      <h2>Emergency Care</h2>
+      <div class="emergency-card">
+        <p>For life-threatening emergencies, go directly to the Emergency Ward (Block A, Ground Floor) or call an ambulance driver directly below.</p>
+        <button class="btn danger" id="emergencyAdmitBtn">🚑 Fast-Track Emergency Admission</button>
+      </div>
+
+      <div class="card-2col" style="margin-top:16px">
+        <div class="card">
+          <h3>🚑 Ambulance Drivers On Call</h3>
+          <div id="ambulanceList"></div>
+        </div>
+        <div class="card">
+          <h3>⚠️ Emergency Guidelines</h3>
+          <ul id="guidelinesList" class="guidelines-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIT PATIENT -->
+    <section id="admit" class="panel">
+      <div class="card-2col">
+        <div class="card">
+          <h3>Admit Patient</h3>
+          <label>Patient ID (or Phone Number) *</label>
+          <div class="row">
+            <input id="admitLookup" placeholder="e.g. P1004">
+            <button class="btn" id="admitLookupBtn">Get Patient</button>
+          </div>
+          <label>Patient Name *</label>
+          <input id="admitName">
+          <div class="row">
+            <div class="col"><label>Age *</label><input id="admitAge" type="number"></div>
+            <div class="col"><label>Gender *</label>
+              <select id="admitGender"><option>Female</option><option>Male</option><option>Other</option></select>
+            </div>
+          </div>
+          <label>Department</label>
+          <select id="admitDept"></select>
+          <button class="btn primary full" id="admitBtn">Admit</button>
+        </div>
+        <div class="card details" id="admitPreview">
+          <h3>Patient Details</h3>
+          <p class="muted">Look up or enter a patient to preview details here.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PATIENT QUEUE -->
+    <section id="queue" class="panel">
+      <div class="panel-header">
+        <h2>Patient Queue</h2>
+        <div class="row" style="align-items:center">
+          <select id="queueDeptFilter"></select>
+          <button class="btn primary" id="callNextBtn">🔔 Call Next Patient</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table id="queueTable">
+          <thead><tr><th>#</th><th>Patient ID</th><th>Name</th><th>Age</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PRESCRIPTION -->
+    <section id="prescription" class="panel">
+      <div class="card-2col">
+        <div class="card">
+          <h3>Create Prescription</h3>
+          <label>Patient ID *</label>
+          <div class="row"><input id="rxLookup" placeholder="e.g. P1004"><button class="btn" id="rxLookupBtn">Get Patient</button></div>
+          <label>Add Medicines</label>
+          <table class="mini-table" id="rxMedTable">
+            <thead><tr><th>Medicine</th><th>Dosage</th><th>Frequency</th><th>Duration</th><th>Price (₹)</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <button class="btn small" id="addMedBtn">+ Add Medicine</button>
+          <label>Instructions</label>
+          <textarea id="rxInstructions" rows="3">Give after food. Maintain hydration. If fever persists, consult again.</textarea>
+          <div class="row">
+            <button class="btn primary" id="saveRxBtn">Save Prescription</button>
+            <button class="btn success" id="sendRxBtn">Send to Patient (SMS)</button>
+          </div>
+        </div>
+        <div class="card details" id="rxPreview">
+          <h3>Patient</h3>
+          <p class="muted">Look up a patient to begin.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOD PLAN -->
+    <section id="foodplan" class="panel">
+      <div class="card-2col">
+        <div class="card">
+          <h3>Food Plan</h3>
+          <label>Patient ID *</label>
+          <div class="row"><input id="fpLookup" placeholder="e.g. P1004"><button class="btn" id="fpLookupBtn">Get Patient</button></div>
+          <label>Food Plan *</label>
+          <select id="fpPlan">
+            <option>Pediatric Balanced Meal</option>
+            <option>Diabetic Diet</option>
+            <option>Low Sodium Diet</option>
+            <option>Liquid Diet</option>
+            <option>Regular Diet</option>
+          </select>
+          <label>Meal Timing *</label>
+          <div class="checks">
+            <label><input type="checkbox" id="mBreak" checked> Breakfast</label>
+            <label><input type="checkbox" id="mLunch" checked> Lunch</label>
+            <label><input type="checkbox" id="mDinner" checked> Dinner</label>
+          </div>
+          <div class="row">
+            <div class="col"><label>Quantity *</label><input id="fpQty" type="number" value="1"></div>
+            <div class="col"><label>&nbsp;</label><span class="muted">Day(s)</span></div>
+          </div>
+          <label>Additional Instructions</label>
+          <textarea id="fpInstructions" rows="3">Give small portions. No spicy food. Ensure hydration.</textarea>
+          <button class="btn primary full" id="saveFpBtn">Save Food Plan</button>
+        </div>
+        <div class="card details" id="fpPreview">
+          <h3>Meal Details</h3>
+          <p class="muted">Look up a patient and choose a plan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BILL -->
+    <section id="bill" class="panel">
+      <div class="card-2col">
+        <div class="card">
+          <h3>Generate Bill</h3>
+          <label>Patient ID *</label>
+          <div class="row"><input id="billLookup" placeholder="e.g. P1004"><button class="btn" id="billLookupBtn">Get Details</button></div>
+          <label>Bill Summary</label>
+          <table class="mini-table" id="billTable">
+            <thead><tr><th>Category</th><th>Details</th><th>Amount (₹)</th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <div class="total-row">Total Amount: <span id="billTotal">₹0</span></div>
+          <div class="row">
+            <button class="btn primary" id="saveBillBtn">Save Bill to Database</button>
+            <button class="btn success" id="sendBillBtn">Send Bill to Patient (SMS)</button>
+          </div>
+        </div>
+        <div class="card phone-preview">
+          <div class="phone">
+            <div class="phone-head">QuickCare</div>
+            <div class="phone-body" id="phoneBody">
+              <p class="muted center">SMS preview will appear here after you send a prescription or bill.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEARBY HOSPITALS -->
+    <section id="nearby" class="panel">
+      <div class="panel-header">
+        <h2>Nearby Hospitals</h2>
+        <button class="btn primary" id="findHospitalsBtn">📍 Find Nearby Hospitals</button>
+      </div>
+      <div class="card-2col">
+        <div class="card nearby-hero">
+          <div class="hospital-pulse">🏥</div>
+          <h3>Find hospitals near you</h3>
+          <p id="nearbyStatus" class="muted">
+            Allow location access to find hospitals around your current location.
+          </p>
+          <a id="mapsHospitalLink" class="btn primary map-link" href="https://www.google.com/maps/search/hospitals" target="_blank" rel="noopener">
+            🗺️ Open Hospitals in Google Maps
+          </a>
+        </div>
+        <div class="card">
+          <h3>Quick Access</h3>
+          <div class="hospital-tip">🚑 <span><strong>Emergency:</strong> Use the Emergency section for fast-track admission and ambulance details.</span></div>
+          <div class="hospital-tip">🎙️ <span><strong>Voice route:</strong> Select any department to hear its route automatically.</span></div>
+          <div class="hospital-tip">📍 <span><strong>Nearby search:</strong> The map opens hospitals based on your current location.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VOICE ASSISTANT -->
+    <section id="voice" class="panel">
+      <div class="card-2col">
+        <div class="card center-card">
+          
+          <button class="mic-btn" id="micBtn">🎙️</button>
+          <p id="voiceStatus" class="muted">Select a department to hear its route, or tap the mic and say a department name<br>(e.g. Cardiology, Neurology, Pediatrics, Emergency)</p>
+        </div>
+        <div class="card">
+          <h3>Navigation Direction</h3>
+          <div id="navResult" class="nav-box">
+            <p class="muted">Select a department to start voice-guided navigation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

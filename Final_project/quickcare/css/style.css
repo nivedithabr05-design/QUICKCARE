@@ -1,0 +1,319 @@
+:root{
+  --blue:#0b63ce;
+  --blue-dark:#0a4fa3;
+  --teal:#0fa3a3;
+  --bg:#eef3fb;
+  --card:#ffffff;
+  --border:#dde6f2;
+  --text:#1c2b3a;
+  --muted:#6b7c93;
+  --green:#1e9e5a;
+  --amber:#e8a300;
+  --red:#d94b4b;
+  --radius:10px;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+h1,h2,h3,h4{margin:0;}
+
+/* Topbar */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:12px 24px;
+  background:var(--card);
+  border-bottom:1px solid var(--border);
+  flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand h1{font-size:20px;color:var(--blue-dark);letter-spacing:.2px;}
+.brand span{font-size:11px;color:var(--muted);}
+.system-title{font-size:17px;color:var(--blue-dark);flex:1;text-align:center;min-width:220px;}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.top-btn{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:8px 12px;
+  font-size:12.5px;
+  cursor:pointer;
+  color:var(--blue-dark);
+}
+.top-btn:hover{background:#e2ecfb;}
+
+/* Layout */
+.layout{display:flex;min-height:calc(100vh - 66px);}
+.sidebar{
+  width:210px;
+  background:#12294b;
+  padding:14px 10px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.side-title{color:#8fb4e6;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin:6px 8px 10px;}
+.nav-item{
+  background:transparent;
+  border:none;
+  color:#cfe0f7;
+  text-align:left;
+  padding:10px 12px;
+  border-radius:8px;
+  font-size:13.5px;
+  cursor:pointer;
+}
+.nav-item:hover{background:#1c3a63;}
+.nav-item.active{background:var(--blue);color:#fff;}
+
+.content{flex:1;padding:22px;max-width:1200px;}
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* Home */
+.hero-card{
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  color:#fff;
+  padding:26px;
+  border-radius:var(--radius);
+  margin-bottom:22px;
+}
+.hero-card h2{font-size:22px;margin-bottom:8px;}
+.hero-card p{margin:0;opacity:.92;font-size:14px;max-width:640px;}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.feature{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px;
+  font-size:22px;
+}
+.feature h4{font-size:14px;margin:8px 0 4px;color:var(--blue-dark);}
+.feature p{margin:0;font-size:12.5px;color:var(--muted);}
+
+/* Panel header / cards */
+.panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px;
+}
+.card h3{color:var(--blue-dark);margin-bottom:12px;font-size:16px;}
+.card-2col{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;align-items:start;}
+label{display:block;font-size:12.5px;color:var(--muted);margin:10px 0 4px;}
+input,select,textarea{
+  width:100%;
+  padding:9px 10px;
+  border:1px solid var(--border);
+  border-radius:7px;
+  font-size:13.5px;
+  font-family:inherit;
+  background:#fbfdff;
+}
+.row{display:flex;gap:8px;align-items:flex-end;}
+.row .col{flex:1;}
+.row input{flex:1;}
+.checks{display:flex;gap:14px;font-size:13px;color:var(--text);margin-top:4px;}
+.checks label{display:flex;align-items:center;gap:5px;margin:0;color:var(--text);}
+.checks input{width:auto;}
+
+.btn{
+  background:var(--bg);
+  border:1px solid var(--border);
+  padding:9px 14px;
+  border-radius:7px;
+  cursor:pointer;
+  font-size:13px;
+  color:var(--blue-dark);
+}
+.btn.primary{background:var(--blue);color:#fff;border-color:var(--blue);}
+.btn.success{background:var(--green);color:#fff;border-color:var(--green);}
+.btn.danger{background:var(--red);color:#fff;border-color:var(--red);}
+.btn.small{padding:6px 10px;font-size:12px;margin-top:8px;}
+.btn.full{width:100%;margin-top:14px;}
+.btn:hover{filter:brightness(0.96);}
+
+.details{background:#f3f8ff;}
+.muted{color:var(--muted);font-size:13px;}
+.center{text-align:center;}
+.hint{color:var(--muted);font-size:12.5px;margin-top:10px;}
+
+/* Doctors */
+.doctor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.doctor-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px;text-align:center;
+}
+.doctor-avatar{
+  width:100px;height:100px;border-radius:50%;margin:0 auto 10px;
+  background:#dfe9f8;display:flex;align-items:center;justify-content:center;font-size:36px;
+  overflow:hidden;
+}
+.doctor-avatar img{width:100%;height:100%;object-fit:cover;}
+.doctor-card h4{color:var(--blue-dark);font-size:15px;margin-bottom:2px;}
+.doctor-card p{margin:2px 0;font-size:12.5px;color:var(--muted);}
+.avail{display:inline-block;margin-top:8px;font-size:12px;padding:3px 10px;border-radius:20px;}
+.avail.yes{background:#e2f6ea;color:var(--green);}
+.avail.no{background:#fbe6e6;color:var(--red);}
+
+/* Departments */
+.dept-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.dept-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;cursor:pointer;}
+.dept-card:hover{border-color:var(--blue);}
+.dept-card .ic{font-size:26px;}
+.dept-card h4{font-size:13.5px;margin-top:6px;color:var(--blue-dark);}
+
+/* Tables */
+.table-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);}
+th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px;}
+.status{padding:3px 10px;border-radius:20px;font-size:11.5px;}
+.status.waiting{background:#fff2d6;color:var(--amber);}
+.status.consult{background:#e2eefc;color:var(--blue);}
+.status.admitted{background:#e2f6ea;color:var(--green);}
+
+.mini-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:12.5px;}
+.mini-table th,.mini-table td{padding:6px 8px;border-bottom:1px solid var(--border);}
+.mini-table input{padding:5px 6px;font-size:12.5px;}
+
+.total-row{margin-top:12px;font-weight:600;color:var(--blue-dark);font-size:15px;text-align:right;}
+
+/* Phone preview */
+.phone-preview{display:flex;justify-content:center;}
+.phone{width:260px;background:#0d1b2a;border-radius:26px;padding:10px;}
+.phone-head{color:#fff;font-size:13px;padding:8px;text-align:center;border-bottom:1px solid #24344a;}
+.phone-body{background:#f4f7fb;border-radius:14px;min-height:340px;max-height:420px;overflow-y:auto;padding:10px;font-size:11.5px;}
+.msg{background:#fff;border-radius:10px;padding:8px 10px;margin-bottom:8px;line-height:1.5;}
+.msg .time{display:block;color:var(--muted);font-size:10px;margin-top:4px;}
+
+/* Emergency */
+.emergency-card{background:#fdecec;border:1px solid #f6c9c9;border-radius:var(--radius);padding:18px;}
+
+/* Voice */
+.center-card{text-align:center;}
+.mic-btn{
+  width:80px;height:80px;border-radius:50%;border:none;background:var(--blue);color:#fff;
+  font-size:30px;cursor:pointer;margin:10px 0;
+}
+.mic-btn.listening{background:var(--red);animation:pulse 1.2s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,75,75,.5);}100%{box-shadow:0 0 0 18px rgba(217,75,75,0);}}
+.nav-box{min-height:120px;}
+
+/* Ambulance / guidelines */
+.ambulance-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;
+}
+.ambulance-row:last-child{border-bottom:none;}
+.guidelines-list{margin:0;padding-left:18px;font-size:13px;line-height:1.7;color:var(--text);}
+
+@media(max-width:900px){
+  .layout{flex-direction:column;}
+  .sidebar{width:100%;flex-direction:row;overflow-x:auto;}
+  .card-2col{grid-template-columns:1fr;}
+  .feature-grid,.doctor-grid,.dept-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+
+/* Hospital-themed department interaction */
+.dept-card{
+  position:relative;
+  overflow:hidden;
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.dept-card::after{
+  content:"🏥";
+  position:absolute;
+  right:10px;
+  bottom:8px;
+  font-size:17px;
+  opacity:0;
+  transform:translateY(10px) scale(.8);
+  transition:opacity .25s ease, transform .25s ease;
+}
+.dept-card:hover{
+  transform:translateY(-6px) scale(1.02);
+  border-color:var(--blue);
+  box-shadow:0 10px 24px rgba(11,99,206,.16);
+}
+.dept-card:hover::after{
+  opacity:.9;
+  transform:translateY(0) scale(1);
+}
+.dept-card:hover .ic{
+  animation:medicalBounce .65s ease;
+}
+@keyframes medicalBounce{
+  0%,100%{transform:scale(1) rotate(0);}
+  35%{transform:scale(1.18) rotate(-5deg);}
+  70%{transform:scale(1.08) rotate(5deg);}
+}
+
+/* Nearby hospitals */
+.nearby-hero{
+  text-align:center;
+  min-height:240px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.hospital-pulse{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:34px;
+  background:#e8f2ff;
+  margin-bottom:12px;
+  animation:hospitalPulse 1.8s infinite;
+}
+@keyframes hospitalPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(11,99,206,.20);}
+  50%{box-shadow:0 0 0 14px rgba(11,99,206,0);}
+}
+.map-link{
+  text-decoration:none;
+  display:inline-block;
+  margin-top:14px;
+}
+.hospital-tip{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+  font-size:13px;
+  line-height:1.5;
+}
+.hospital-tip:last-child{border-bottom:none;}
+
+.route-card{
+  background:#eef6ff;
+  border:1px solid #cfe2fb;
+  border-left:4px solid var(--blue);
+  border-radius:9px;
+  padding:14px;
+  animation:routeAppear .35s ease-out;
+}
+.route-card p{margin:6px 0;}
+.route-title{font-weight:700;color:var(--blue-dark);}
+@keyframes routeAppear{
+  from{opacity:0;transform:translateX(10px);}
+  to{opacity:1;transform:translateX(0);}
+}
+
+/* Keep the route assistant functional without a visible heading. */
+.route-card{
+  margin-top:4px;
+}
