@@ -2,6 +2,6 @@ class Start1
 {
  void show()
 {
-	System.out.println("hello");
+	System.out.println("modifieds");
 }
 }
